@@ -1,5 +1,5 @@
 
-// Login.js 04.06.2025
+// Login.js 15.08.2025
 
   // Globaler Speicher für den angemeldeten Benutzernamen, sobald der Login erfolgreich war
   let loggedInUsername = '';
