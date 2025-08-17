@@ -1,12 +1,4 @@
-/* --- Global.css 12.06.2025  ---------*/
-/* Globale Abstände für Haupt-Layoutelemente */
-.app-section h1,
-.app-section h2,
-.app-section h3,
-.app-section p {
-    margin: 0.5em 0; /* Vertikaler Abstand von 0.5em, horizontal 0 */
-}
-
+/* --- Global.css 16.08.2025  ---------*/
 
  /* Basis-Reset und mobile Optimierung */
   html, body {
@@ -36,6 +28,27 @@ body {
     margin: 0;
     line-height: 1.5;
     color: #333;
+}
+
+/* Stil für den Lade-Container */
+#loading-initial {
+    text-align: center;
+    padding: 100px 20px;
+    font-family: Arial, sans-serif;
+    color: #555;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 50px auto;
+}
+
+/* Stil für den Text "Wird geladen..." */
+#loading-initial p {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #004d40; /* Dunkelgrün, passend zum Tafel-Logo */
+    margin-bottom: 20px;
 }
 
 /* App-Sektionen (Login, Formular) - für Zentrierung und maximale Breite */
