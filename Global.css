@@ -43,14 +43,14 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 5px solid var(--accent-color);
+    border: 5px solid yellow;
 }
 
 /* Stil für den Text "Wird geladen..." */
 #loading-initial p {
     font-size: 1.8rem;
     font-weight: bold;
-    color: #004d40; /* Dunkelgrün, passend zum Tafel-Logo */
+    color: #fff;
     margin-bottom: 20px;
 }
 
@@ -299,5 +299,6 @@ input[type="text"]:focus {
       font-size: 0.9em;
     }
   }
+
 
 
