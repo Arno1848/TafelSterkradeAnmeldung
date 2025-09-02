@@ -1,6 +1,4 @@
-// Start.js (17.08.2025)
-
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyoGKR58bdWuOmPyKYjCJKL33g-EGz1HLoFXuBZmaQccsbo_NHjU691n0Xu_h-DiU8tGA/exec";
+// Start.js (02.09.2025)
 
 //---------------------------------------------------------------------------------------------
 function apiCall(action, payload) {
@@ -126,5 +124,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Jetzt rufen wir unsere Funktion zur Wartungsprüfung auf.
   checkMaintenanceAndInit();
 });
+
 
 
