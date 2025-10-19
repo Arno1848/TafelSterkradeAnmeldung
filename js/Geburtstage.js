@@ -56,31 +56,49 @@ function filterGeburtstageByTageVoraus(alleGeburtstage, tageVoraus) {
     return gefilterteListe.map(({ Name, Geburtstag }) => ({ Name, Geburtstag }));
 }
 
-
 //-----------------------------------------------
-function xxxgeburtstageOeffnen() {
+// Wird bei Änderung des Inputfeldes oder Klick auf die Buttons aufgerufen
+function changeWochenvoraus(newValue) {
 //-----------------------------------------------
-    const titel = "Geburtstage";
-    let GeburtsdatumTagevoraus = GeburtsdatumWochenvoraus * 7;
-  
-    // NEU: Filtern Sie die Daten jedes Mal neu, falls GeburtsdatumTagevoraus geändert wurde
-    const gefilterteDaten = filterGeburtstageByTageVoraus(alleGeburtstageCache, GeburtsdatumTagevoraus);
+    // Stelle sicher, dass der Wert ein Integer ist (von den Buttons kommt ein berechneter Wert)
+    const newWochen = parseInt(newValue);
+    
+    // Die gültigen Grenzen
+    const MIN_WOCHEN = 1;
+    const MAX_WOCHEN = 52; 
+    
+    let finalWochen;
 
-    // Aktualisieren Sie die Zeitraumanzeige
-    updateGeburtstageZeitraum(GeburtsdatumTagevoraus);
-
-    showOverlayGeburtstage(titel, gefilterteDaten);
+    // 1. Validierung (zwischen 1 und 52 Wochen)
+    if (isNaN(newWochen) || newWochen < MIN_WOCHEN) {
+        finalWochen = MIN_WOCHEN;
+    } else if (newWochen > MAX_WOCHEN) {
+        finalWochen = MAX_WOCHEN;
+    } else {
+        finalWochen = newWochen;
+    }
+    
+    // Nur aktualisieren, wenn sich der Wert ändert
+    if (GeburtsdatumWochenvoraus !== finalWochen) {
+        // 2. Globale Variable aktualisieren
+        GeburtsdatumWochenvoraus = finalWochen;
+        
+        // 3. Input-Feld und Ansicht neu rendern
+        document.getElementById("wochen-input").value = finalWochen;
+        updateGeburtstageView();
+    }
 }
-
-// ... (filterGeburtstageByTageVoraus bleibt unverändert)
 
 //-----------------------------------------------
 function geburtstageOeffnen() {
 //-----------------------------------------------
+    const titel = "Geburtstage";
+    
     // 1. Inputfeld mit dem aktuellen Wert initialisieren
     const wochenInput = document.getElementById("wochen-input");
     if (wochenInput) {
-        wochenInput.value = GeburtsdatumWochenvoraus;
+        // Setzt den aktuellen Wert der globalen Variable in das Inputfeld
+        wochenInput.value = GeburtsdatumWochenvoraus; 
     }
     
     // 2. Ansicht initialisieren und filtern
@@ -91,7 +109,6 @@ function geburtstageOeffnen() {
 }
 
 //-----------------------------------------------
-// NEUE FUNKTION: Filtert und rendert die Daten
 function updateGeburtstageView() {
 //-----------------------------------------------
     const titel = "Geburtstage";
@@ -106,28 +123,6 @@ function updateGeburtstageView() {
 
     // 3. Liste rendern
     showOverlayGeburtstage(titel, gefilterteDaten);
-}
-
-//-----------------------------------------------
-// NEUE FUNKTION: Wird bei Änderung des Inputfeldes aufgerufen
-function changeWochenvoraus(newValue) {
-//-----------------------------------------------
-    const newWochen = parseInt(newValue);
-    
-    // Validierung (zwischen 1 und 52 Wochen)
-    if (isNaN(newWochen) || newWochen < 1) {
-        GeburtsdatumWochenvoraus = 1; // Minimum
-        document.getElementById("wochen-input").value = 1;
-    } else if (newWochen > 52) {
-        GeburtsdatumWochenvoraus = 52; // Maximum (1 Jahr)
-        document.getElementById("wochen-input").value = 52;
-    } else {
-        // Globale Variable aktualisieren
-        GeburtsdatumWochenvoraus = newWochen;
-    }
-    
-    // Ansicht neu filtern und rendern
-    updateGeburtstageView();
 }
 
 
@@ -180,55 +175,6 @@ function updateGeburtstageZeitraum(GeburtsdatumTagevoraus) {
     // zeigen wir in den <p>-Elementen nur noch das errechnete Enddatum an.
     //    document.getElementById("geburtstage-zeitraum").textContent = ""; // Wird nicht mehr benötigt
     document.getElementById("geburtstage-bisdatum").textContent = bisdatumText; 
-}
-
-//-----------------------------------------------
-function xxxshowOverlayGeburtstage(titel, geburtstageArray) {
-//-----------------------------------------------
-    document.getElementById("overlayGeburtstage-title").textContent = titel;
-console.log("showOverlayGeburtstage:", geburtstageArray.length);
-
-    const geburtstageTitle = document.getElementById("scrollboxGeburtstage-title");
-    geburtstageTitle.textContent = `anstehende Geburtstage: ${geburtstageArray.length}`;
-
-    const geburtstageTable = document.getElementById("scrollboxGeburtstage-table");
-    geburtstageTable.innerHTML = "";
-
-    geburtstageArray.forEach(eintrag => {
-        const row = document.createElement("tr");
-        row.innerHTML = `<td>${eintrag.Name}</td><td>${eintrag.Geburtstag}</td>`;
-        geburtstageTable.appendChild(row);
-    });
-
-    // Overlay anzeigen
-    document.getElementById("overlayGeburtstage").style.display = "flex";
-}
-
-
-//-----------------------------------------------------------------------------
-function xxxupdateGeburtstageZeitraum(GeburtsdatumTagevoraus) {
-//-----------------------------------------------------------------------------
-
-    const heute = new Date();
-    // Kopie des heutigen Datums erstellen, um es zu modifizieren
-    const datumBis = new Date(heute.getTime()); 
-    
-    // Fügt die Tage hinzu
-    datumBis.setDate(heute.getDate() + GeburtsdatumTagevoraus);
-    
-    // Formatierung (tt.mm.jjjj)
-    const tag = String(datumBis.getDate()).padStart(2, '0');
-    const monat = String(datumBis.getMonth() + 1).padStart(2, '0'); // Monate sind 0-basiert
-    const jahr = datumBis.getFullYear();
-    const datumBisFormatiert = `${tag}.${monat}.${jahr}`;
-    
-    // Text zusammenbauen
-    const bisdatumText = `bis zum ${datumBisFormatiert}`;
-    const zeitraumText = `in den nächsten ${GeburtsdatumWochenvoraus} Wochen`;
-
-    // Im Overlay anzeigen
-    document.getElementById("geburtstage-bisdatum").textContent = bisdatumText;
-    document.getElementById("geburtstage-zeitraum").textContent = zeitraumText;
 }
 
 //---------------------------------------------------------------------------------------------
