@@ -316,7 +316,7 @@
     margin: 0px 0 10px 0; /* Etwas näher an der Tabelle */
     text-align: left;
     font-weight: 100;
-    color: #666;
+    color: #333;
     font-size: 0.8em;
     font-style: italic;
     padding: 0px;
@@ -336,33 +336,54 @@
 }
 
 .scrollbox-geburtstage {
-  max-height: 100px;
+    height: 100px;
 }
 
-
-/* --- CSS Ergänzung für Wochen-Input im Geburtstags-Overlay ---*/
-#geburtstage-einstellungen {
-    display: flex;
-    justify-content: left;
-    align-items: left;
-    gap: 10px;
-    margin-bottom: 15px;
-    font-size: 0.9rem;
-    padding: 5px;
-}
 
 #geburtstage-einstellungen label {
     font-weight: bold;
 }
 
-#geburtstage-einstellungen input[type="number"] {
-    width: 60px; /* Kleinere Breite */
-    padding: 4px;
-    text-align: left;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    /* Optional: Entfernt die Standard-Spin-Buttons, falls Sie eigene Buttons verwenden möchten. 
-       Wenn Sie die Standard-Browser-Pfeile beibehalten wollen, löschen Sie dies: */
-    /* -moz-appearance: textfield; */
+/* --- CSS Ergänzung/Änderung für Wochen-Input und Buttons ---*/
+#geburtstage-einstellungen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px; /* Kleinerer Abstand zwischen den Elementen */
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+    padding: 5px;
 }
 
+#geburtstage-einstellungen button {
+    /* Stil für die neuen Plus/Minus-Buttons */
+    width: 25px;
+    height: 25px;
+    padding: 0;
+    margin: 0;
+    font-size: 1.1em;
+    font-weight: bold;
+    line-height: 1;
+    background-color: #f0f0f0;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#geburtstage-einstellungen button:hover {
+    background-color: #e0e0e0;
+}
+
+#wochen-input { 
+    width: 40px; 
+    height: 25px; 
+    padding: 4px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; 
+    margin: 10px 0 10px 0; 
+
+}
