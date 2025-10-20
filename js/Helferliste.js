@@ -1,4 +1,4 @@
-// Helferliste.js 16.10.2025
+// Helferliste.js 20.10.2025
 
 // Globale Variablen 
 let currentSortColumn = 'Name'; // Standardmäßig nach Name (Nachname) sortieren
@@ -55,14 +55,16 @@ function updateHelferlisteHeader() {
   };
 
   // Setze das Sortier-Symbol (⮝ oder ⮟)
-  const sortSymbol = sortDirection === 'asc' ? ' ⮝' : ' ⮟';
+//  const sortSymbol = sortDirection === 'asc' ? ' ⮝' : ' ⮟';
+  const sortSymbol = sortDirection === 'asc' ? ' ▲' : ' ▼';
   
   // Setze alle Pfeile zurück und füge das Symbol zur aktiven Spalte hinzu
   Object.keys(columnMap).forEach(key => {
     const element = document.getElementById(columnMap[key]);
     if (element) {
       // Nur den Text-Content ohne das Sortiersymbol speichern
-      const originalText = element.textContent.replace(' ⮝', '').replace(' ⮟', '').trim();
+//      const originalText = element.textContent.replace(' ⮝', '').replace(' ⮟', '').trim();
+      const originalText = element.textContent.replace(' ▲', '').replace(' ▼', '').trim();
       
       if (key === currentSortColumn) {
         element.textContent = originalText + sortSymbol;
