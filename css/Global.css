@@ -74,17 +74,8 @@ body {
 }
 
 /* Gemeinsamer Header-Stil (tafelHeader beibehalten, unnötige IDs entfernt) */
-.tafelHeader { 
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0rem 0rem;
-  border-bottom: 2px solid #eee;
-  margin-bottom: 1rem;
-  background-color: #f9f9f9;
-  padding-top: 10px; /* Optional: Etwas Abstand zum oberen Rand */
-
-  /* background-color: white; */
+#tafelHeader { 
+  padding: 0rem 10px;
 }
 
 .titleArea {
