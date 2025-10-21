@@ -1,4 +1,4 @@
-<!-- index.html 20.10.2025 -->
+<!-- index.html 21.10.2025 -->
 
 <!DOCTYPE html>
 <html>
@@ -30,7 +30,7 @@
     <div id="tafelHeader">
       <div class="titleArea">
         <h1 id="header-title">Tafel Sterkrade</h1>
-        <div class="version" id="version-login">Version 5.10.20-1</div>
+        <div class="version" id="version-login">Version 5.10.21-1</div>
                   <img src="TafelLogo.png" alt="Logo">
       </div>
     </div>
@@ -109,9 +109,16 @@
         <div id="overlayRapport-content">
           <h2 id="overlayRapport-title">Tagesrapport</h2>
 
-          <h3 id="scrollboxAnmeldungen-title">Anmeldungen:</h3>
+          <h4 id="scrollboxAnmeldungen-title">Anmeldungen:</h4>
+          <p id="scrollboxAnmeldungenInfoFunc" class="scrollboxZusatzInfo" >0 Fahrer, 0 Ausgabe, 0 Registratur</p>
           <div class="scrollbox scrollbox-anmeldungen">
             <table id="scrollboxAnmeldungen-table"></table>
+          </div>
+
+          <h4 id="scrollboxAbmeldungen-title">ohne Anmeldung:</h4>
+          <p id="scrollboxAbmeldungenInfoFunc" class="scrollboxZusatzInfo" >0 Abmeldungen, 0 ohne Meldung</p>
+          <div class="scrollbox scrollbox-abmeldungen">
+            <table id="scrollboxAbmeldungen-table"></table>
           </div>
 
           <div id="downloadLink_Tagesrapport"></div>
@@ -175,7 +182,7 @@
         </div>
 
         <h4 id="scrollboxGeburtstage-title">Anstehende Geburtstage:</h4>
-        <p id="geburtstage-bisdatum" class="bisdatum-info"></p>
+        <p id="geburtstage-bisdatum" class="scrollboxZusatzInfo"></p>
         <div class="scrollbox scrollbox-geburtstage">
           <table id="scrollboxGeburtstage-table"></table>
         </div>
