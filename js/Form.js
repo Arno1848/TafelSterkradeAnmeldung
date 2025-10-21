@@ -14,6 +14,9 @@ let aktTerminIndex = null;
 let aktTermin = " ";
 let anmeldeFunktionen
 
+const funktiondeutsch = ["Fahrer", "Ausgabe", "Registratur", "abwesend", "(keine Angabe)"];
+let TerminFMCIndex = [];
+
 let GeburtsdatumWochenvoraus = 4;
 let bevorstehendeGeburtstage = [];
 let alleGeburtstageCache = [];
@@ -102,6 +105,8 @@ apiCall('getAllGeburtstage', {})
   }
 
 
+
+
 //---------------------------------------------------------------------------------------------
 function buildForm(data) {
 //---------------------------------------------------------------------------------------------
@@ -131,6 +136,7 @@ function buildForm(data) {
       const option = document.createElement("label");
       option.innerHTML = `<input type="radio" name="termin" value="${i}" ${i === 0 ? "checked" : ""} onchange="updateFMCFrage()"> ${t}`;
       terminContainer.appendChild(option);
+      TerminFMCIndex[i] = -1
     });
 
     console.log("CLIENT: Termine im DOM erstellt.");
@@ -228,6 +234,10 @@ function updateTerminAntwort() {
         const terminText = terminDaten[terminIndex];
         const updatedTerminText = `${terminText.split("–")[0].trim()} – ${funktion}`;
         terminLabel.innerHTML = `<input type="radio" name="termin" value="${terminIndex}" checked onchange="updateFMCFrage()"> <span class="changed">${updatedTerminText}</span>`;
+        TerminFMCIndex[terminIndex] = aktiverFMCButton.dataset.fmcIndex
+//          console.log("**1 updateTerminAntwort terminLabel", terminIndex, terminLabel);
+//          console.log("**2 updateTerminAntwort aktiverFMCButton", aktiverFMCButton.dataset.fmcIndex, aktiverFMCButton.textContent);
+//          console.log("**3 updateTerminAntwort TerminFMCIndex", terminIndex, TerminFMCIndex[terminIndex], funktiondeutsch[TerminFMCIndex[terminIndex]]);
       }
 
       updateAnmeldeInfo();
@@ -369,6 +379,61 @@ function closeOverlaySubmit() {
   document.getElementById("overlaySubmit").classList.add("hidden");
 }
 
+function xxxsubmitForm() {
+//---------------------------------------------------------------------------------------------
+  const terminLabels = document.getElementById("termin-options").getElementsByTagName("label");
+  const updates = [];
+      console.log("submitForm terminLabels:", terminLabels);
+
+  Array.from(terminLabels).forEach((label, index) => {
+
+    const span = label.querySelector('.changed');
+      
+    if (span) {
+      const funkdeutsch = funktiondeutsch[TerminFMCIndex[index]]
+      const funktion = span.textContent.includes("–") ? span.textContent.split("–")[1].trim() : "";
+      updates.push({ index: index, funktion, text: span.textContent.trim() });
+      console.log("++++submitForm, Terminindex, funktion, funkdeutsch, span:", index, funktion, funkdeutsch, span);
+    }
+  });
+
+  if (updates.length === 0) {
+    statusEl.innerText = "❗ Keine Änderungen erkannt.";
+    return;
+  }
+
+  showOverlaySubmit("<strong>🕓 Eingaben werden gespeichert...</strong><br>");
+
+  let completed = 0;
+  updates.forEach(update => {
+//    apiCall('submitFormData', { Anmelde: formUsername, terminIndex: update.index, funktion: update.funktion })
+//      .then(() => {
+        updateOverlaySubmit(`🟢 ${update.text}    ✓.`);
+        completed++;
+        if (completed === updates.length) {
+          updateOverlaySubmit(` \n✅ Alle Änderungen gespeichert.`);
+//          refreshFormView();
+
+//          apiCall('sendConfirmationMail', { Anmelde: formUsername })
+//            .then(() => {
+              updateOverlaySubmit(`✅ Bestätigungsemail verschickt`);
+              document.getElementById("closeOverlaySubmit").style.display = "inline-block";
+//            })
+//            .catch(err => {
+//              updateOverlaySubmit(`❌ Fehler beim Senden der Bestätigungsemail`);
+//              document.getElementById("closeOverlaySubmit").style.display = "inline-block";
+//            });
+        }
+//      })
+//      .catch(err => {
+//        updateOverlaySubmit(`❌ Fehler beim Speichern:\n${err.message}`);
+//        document.getElementById("closeOverlaySubmit").style.display = "inline-block";
+//      });
+  });
+ 
+
+}
+
 
 // Neuer Code für die gesamte submitForm() Funktion
 //---------------------------------------------------------------------------------------------
@@ -380,7 +445,8 @@ function submitForm() {
   Array.from(terminLabels).forEach((label, index) => {
     const span = label.querySelector('.changed');
     if (span) {
-      const funktion = span.textContent.includes("–") ? span.textContent.split("–")[1].trim() : "";
+      const funktion = funktiondeutsch[TerminFMCIndex[index]]
+//      const funktion = span.textContent.includes("–") ? span.textContent.split("–")[1].trim() : "";
       updates.push({ index: index, funktion, text: span.textContent.trim() });
     }
   });
