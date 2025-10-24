@@ -1,4 +1,4 @@
-// Helferliste.js 20.10.2025
+// Helferliste.js 24.10.2025
 
 // Globale Variablen 
 let currentSortColumn = 'Name'; // Standardmäßig nach Name (Nachname) sortieren
@@ -16,7 +16,7 @@ function helferlisteOeffnen() {
 //-----------------------------------------------
 function showOverlayHelferliste(helferArray) {
 //-----------------------------------------------
-  const titel = "HelferListe";
+  const titel = "Helferliste Tafel Sterkrade";
   document.getElementById("overlayHelferliste-title").textContent = titel;
 
   // Tabelle: Helferliste
