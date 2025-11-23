@@ -205,7 +205,7 @@
 .preview-table td {
     /* border: 1px solid #ddd;  */
     border: none; /* <-- WICHTIG: Entfernt alle sichtbaren Gitternetzlinien */
-    padding: 1px 4px;
+    padding: 0px 0px;
     text-align: left;
     white-space: nowrap; /* Verhindert Zeilenumbruch in Zellen */
     overflow: hidden; /* Wichtig, falls Inhalt nicht passt */
@@ -254,3 +254,4 @@
         width: 60px; /* Schmaler Aktionsbereich */
     }
 }
+
