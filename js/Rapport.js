@@ -558,8 +558,8 @@ function renderSheetData(result) {
             // 2. Schriftgröße und -stil
             const originalSize = parseFloat(fontSizes[rowIndex][cellIndex]);
             if (!isNaN(originalSize)) {
-                // Skalierung: 30% Reduzierung (Faktor 0.7)
-                const scaledSize = originalSize * 0.5; 
+                // Skalierung: 52% Reduzierung => Faktor 0.48)
+                const scaledSize = originalSize * 0.48; 
                 cellStyle.fontSize = scaledSize.toFixed(1) + 'pt'; 
             }
             
@@ -648,4 +648,5 @@ function xxxcreateRapport() {
     console.error("Fehler beim Erstellen des Rapports:", error);
   });
 }
+
 
