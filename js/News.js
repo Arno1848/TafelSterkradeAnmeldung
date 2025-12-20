@@ -1,4 +1,4 @@
-// News.js 17.12.2025
+// News.js 20.12.2025
 
 let GLOBAL_NEWS_SCHALTER_VALUE = "";
 let GLOBAL_NEWS_SCHALTER_AKTIV = false; 
